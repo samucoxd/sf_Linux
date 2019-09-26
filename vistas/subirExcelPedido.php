@@ -13,7 +13,7 @@ if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
 
 
 $nombreArchivo ="../libs/uploads/".basename( $_FILES['uploadedfile']['name']);
-
+$nombreArchivo = "../libs/uploads/pedido.csv";
 $dato;
 $aux=1;
 if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
@@ -33,13 +33,13 @@ if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
     fclose($gestor);
 }
 
-
 foreach ($dato as $value) {
     try {
         // begin the transaction
         $conn->beginTransaction();
         // our SQL statements
-        $fecha = date("Y-m-d", $value['fecha']);
+        $date = DateTime::createFromFormat('d/m/Y', $value['fecha']);
+        $fecha = $date->format('Y-m-d'); // => 2013-12-24
         $conn->exec("INSERT INTO pedido (idnota, idfac, fecha, cliente, vendedor)
         VALUES ({$value['nota']},{$value['factura']},'{$fecha}',{$value['codCliente']},{$value['codVendedor']})");
         // commit the transaction
