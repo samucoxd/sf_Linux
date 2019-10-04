@@ -1,6 +1,6 @@
 <?php
-include '../config/conexion.php';
 include '../includes/header.php'; 
+include '../controladores/controlador_mysql.php'; 
 $database = new Connection();
 $db = $database->openConnection();
 $mensaje="";
@@ -63,6 +63,43 @@ if (isset($_GET['datos'])) {
 
 	</form>
 </div>
+
+<div class="card shadow mb-4" style="width: 60rem; margin: 20px auto;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">TABLA DE DESPACHADORES</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+				<th scope="col">Cod</th>
+				<th scope="col">Nombre</th>
+				</thead>
+                  <tfoot>
+                    <tr>
+					<th scope="col">Cod</th>
+					<th scope="col">Nombre</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+					<?php 
+					$mysql = new mysql(); 
+					$dato = $mysql->select('despachador');
+
+					foreach ($dato as $row) { ?>
+					<tr>
+						<td><?php echo $row['iddespahcador'] ?></td>
+						<td><?php echo $row['nombre'] ?></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
+                </table>
+              </div>
+            </div>
+</div>
+
 
 
 <?php 

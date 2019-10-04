@@ -1,8 +1,8 @@
 <?php
-include '../config/conexion.php';
 include '../includes/header.php'; 
-$database = new Connection();
-$db = $database->openConnection();
+include '../controladores/controlador_mysql.php'; 
+$database = new mysql();
+$conn = $database->openConnection();
 $mensaje="";
 if (isset($_GET['datos'])) {
 	if(!empty($_GET['nombre']) && !empty($_GET['ciudad'])){
@@ -12,7 +12,7 @@ if (isset($_GET['datos'])) {
 
 		try {
 		// calling stored procedure command
-		$sql = 'insert into destino(nombre) values(:nombre,:ciudad)';
+		$sql = 'insert into destino(nombre,ciudad) values(:nombre,:ciudad)';
 
 		// prepare for execution of the stored procedure
 		$stmt = $db->prepare($sql);
@@ -66,6 +66,45 @@ if (isset($_GET['datos'])) {
 		<button class="btn btn-info btn-block"  type="submit">Registro</button>
 
 	</form>
+</div>
+
+<div class="card shadow mb-4" style="width: 60rem; margin: 20px auto;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">TABLA DE DESTINATARIOS</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+				<th scope="col">Cod</th>
+				<th scope="col">Nombre</th>
+				<th scope="col">Ciudad</th>
+				</thead>
+                  <tfoot>
+                    <tr>
+					<th scope="col">Cod</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Ciudad</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+					<?php 
+					$mysql = new mysql(); 
+					$dato = $mysql->select('destino');
+
+					foreach ($dato as $row) { ?>
+					<tr>
+						<td><?php echo $row['iddestino'] ?></td>
+						<td><?php echo $row['nombre'] ?></td>
+						<td><?php echo $row['ciudad'] ?></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
+                </table>
+              </div>
+            </div>
 </div>
 
 
