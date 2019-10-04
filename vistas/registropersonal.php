@@ -3,11 +3,11 @@ include '../config/conexion.php';
 include '../includes/header.php'; 
 $database = new Connection();
 $db = $database->openConnection();
-$mensaje="";
-if (isset($_GET['datos'])) {
-	if(!empty($_GET['nombre'])){
+$mensaje = false;
+if (isset($_POST['datos'])) {
+	if(!empty($_POST['nombre'])){
 
-		$nombre=$_GET['nombre'];
+		$nombre=$_POST['nombre'];
 
 		try {
 		// calling stored procedure command
@@ -22,14 +22,14 @@ if (isset($_GET['datos'])) {
 
 		$stmt->execute();
 
-		$mensaje = "REGISTRADO! Registro Sastifactorio";
+		$mensaje = true;
 
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
 
 	}else{
-		$mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
+		$mensaje = false;
 	}
 }
 
@@ -37,19 +37,24 @@ if (isset($_GET['datos'])) {
 
 <div class="card" style="width: 40rem; margin: auto;">
 	<!-- Default form subscription -->
-	<form class="text-center border border-light p-5" action="registropersonal.php" method="GET">
+	<form class="text-center border border-light p-5" action="registropersonal.php" method="POST">
 
 		<p class="h4 mb-4">Registro de un Personal de Almacen Nuevo</p>
 
 		<p>LLenar todos los datos Obligatorios para el correcto registro de un Personal de Almacen.</p>
 
-		<?php if ($mensaje != "") {
-		?>
-			<div class="alert alert-danger">
-			<strong><?php echo $mensaje; ?></strong>
+		<?php if ($mensaje) {
+    ?>
+			<div class="alert alert-success">
+			<strong><?php echo "REGISTRADO! Cliente Registrado Correctamente"; ?></strong>
 			</div>
 		<?php
-		} ?>
+}else{
+	?>
+	<div class="alert alert-danger">
+			<strong><?php echo "DATOS INCOMPLETOS, favor vuelva a llenar los datos"; ?></strong>
+			</div>
+<?php } ?>
 
 		<!-- nombre -->
 		<input type="text" id="" name="nombre" class="form-control mb-4" placeholder="Nombre" required>
@@ -62,6 +67,47 @@ if (isset($_GET['datos'])) {
 		<button class="btn btn-info btn-block"  type="submit">Registro</button>
 
 	</form>
+</div>
+
+
+<div class="card shadow mb-4" style="width: 60rem; margin: 20px auto;">
+            <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">TABLA DE DESTINATARIOS</h6>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<thead>
+				<th scope="col">Cod</th>
+				<th scope="col">Nombre</th>
+				</thead>
+                  <tfoot>
+                    <tr>
+					<th scope="col">Cod</th>
+					<th scope="col">Nombre</th>
+                    </tr>
+                  </tfoot>
+                  <tbody>
+					<?php 
+					try {
+						$data = $db->query("SELECT * FROM personalalmacen")->fetchAll();
+					
+					} catch (PDOException $e) {
+						echo "Error al realizar el Select" . $e->getMessage();
+					}
+
+					foreach ($data as $row) { ?>
+					<tr>
+						<td><?php echo $row['idpersonalalmacen'] ?></td>
+						<td><?php echo $row['nombre'] ?></td>
+					</tr>
+					<?php
+					}
+					?>
+				</tbody>
+                </table>
+              </div>
+            </div>
 </div>
 
 

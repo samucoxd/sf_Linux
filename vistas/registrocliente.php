@@ -1,15 +1,15 @@
 <?php
 include '../includes/header.php';
 include '../config/conexion.php';
-$database = Connection();
+$database = new Connection();
 $db = $database->openConnection();
-$mensaje = "";
-if (isset($_GET['datos'])) {
-    if (!empty($_GET['codigo']) && !empty($_GET['nombre']) && !empty($_GET['zona'])) {
+$mensaje = false;
+if (isset($_POST['datos'])) {
+    if (empty($_POST['codigo']) || empty($_POST['nombre']) || empty($_POST['zona'])) {
 
-        $codigo = $_GET['codigo'];
-        $nombre = $_GET['nombre'];
-        $zona = $_GET['zona'];
+        $codigo = $_POST['codigo'];
+        $nombre = $_POST['nombre'];
+        $zona = $_POST['zona'];
 
         try {
             // calling stored procedure command
@@ -24,14 +24,14 @@ if (isset($_GET['datos'])) {
             $stmt->bindParam(':zona', $zona, PDO::PARAM_STR);
             $stmt->execute();
 
-            $mensaje = "REGISTRADO! Cliente Registrado Correctamente";
+            $mensaje = true;
 
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
 
     } else {
-        $mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
+        $mensaje = false;
     }
 }
 
@@ -39,19 +39,24 @@ if (isset($_GET['datos'])) {
 
 <div class="card" style="width: 40rem; margin: auto;">
 	<!-- Default form subscription -->
-	<form class="text-center border border-light p-5" action="registrocliente.php" method="GET">
+	<form class="text-center border border-light p-5" action="registrocliente.php" method="POST">
 
 		<p class="h4 mb-4">Registro de un Cliente Nuevo</p>
 
 		<p>LLenar todos los datos Obligatorios para el correcto registro de Clientes.</p>
 
-		<?php if ($mensaje != "") {
+		<?php if ($mensaje) {
     ?>
-			<div class="alert alert-danger">
-			<strong><?php echo $mensaje; ?></strong>
+			<div class="alert alert-success">
+			<strong><?php echo "REGISTRADO! Cliente Registrado Correctamente"; ?></strong>
 			</div>
 		<?php
-}?>
+}else{
+	?>
+	<div class="alert alert-danger">
+			<strong><?php echo "DATOS INCOMPLETOS, favor vuelva a llenar los datos"; ?></strong>
+			</div>
+<?php } ?>
 
 		<!-- codigo -->
 		<input type="text" id="" name="codigo" class="form-control mb-4" placeholder="Codigo" required>
@@ -93,7 +98,7 @@ if (isset($_GET['datos'])) {
 		<tbody>
 			<?php
 try {
-    $data = $this->$db->query("SELECT * FROM cliente")->fetchAll();
+    $data = $db->query("SELECT * FROM cliente")->fetchAll();
 
 } catch (PDOException $e) {
     echo "Error al realizar el Select" . $e->getMessage();

@@ -1,13 +1,13 @@
 <?php
 include '../includes/header.php';
 include '../config/conexion.php';
-$database = Connection();
+$database = new Connection();
 $db = $database->openConnection();
-$mensaje = "";
-if (isset($_GET['datos'])) {
-    if (!empty($_GET['nombre'])) {
+$mensaje = false;
+if (isset($_POST['datos'])) {
+    if (!empty($_POST['nombre'])) {
 
-        $nombre = $_GET['nombre'];
+        $nombre = $_POST['nombre'];
 
         try {
             // calling stored procedure command
@@ -22,14 +22,14 @@ if (isset($_GET['datos'])) {
 
             $stmt->execute();
 
-            $mensaje = "REGISTRADO! Registro Sastifactorio";
+            $mensaje = true;
 
         } catch (PDOException $e) {
             echo $e->getMessage();
         }
 
     } else {
-        $mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
+        $mensaje = false;
     }
 }
 
@@ -37,19 +37,24 @@ if (isset($_GET['datos'])) {
 
 <div class="card" style="width: 40rem; margin: auto;">
 	<!-- Default form subscription -->
-	<form class="text-center border border-light p-5" action="registrodespachador.php" method="GET">
+	<form class="text-center border border-light p-5" action="registrodespachador.php" method="POST">
 
 		<p class="h4 mb-4">Registro de un Despachador Nuevo</p>
 
 		<p>LLenar todos los datos Obligatorios para el correcto registro de Despachador.</p>
 
-		<?php if ($mensaje != "") {
+		<?php if ($mensaje) {
     ?>
-			<div class="alert alert-danger">
-			<strong><?php echo $mensaje; ?></strong>
+			<div class="alert alert-success">
+			<strong><?php echo "REGISTRADO! Cliente Registrado Correctamente"; ?></strong>
 			</div>
 		<?php
-}?>
+}else{
+	?>
+	<div class="alert alert-danger">
+			<strong><?php echo "DATOS INCOMPLETOS, favor vuelva a llenar los datos"; ?></strong>
+			</div>
+<?php } ?>
 
 		<!-- nombre -->
 		<input type="text" id="" name="nombre" class="form-control mb-4" placeholder="Nombre" required>
@@ -84,7 +89,7 @@ if (isset($_GET['datos'])) {
                   <tbody>
 					<?php
 try {
-    $data = $this->$db->query("SELECT * FROM despachador")->fetchAll();
+    $data = $db->query("SELECT * FROM despachador")->fetchAll();
 
 } catch (PDOException $e) {
     echo "Error al realizar el Select" . $e->getMessage();
@@ -92,7 +97,7 @@ try {
 
 foreach ($data as $row) {?>
 					<tr>
-						<td><?php echo $row['iddespahcador'] ?></td>
+						<td><?php echo $row['iddespachador'] ?></td>
 						<td><?php echo $row['nombre'] ?></td>
 					</tr>
 					<?php

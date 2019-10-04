@@ -1,14 +1,14 @@
 <?php
 include '../includes/header.php'; 
-include '../controladores/controlador_mysql.php'; 
-$database = new mysql();
-$conn = $database->openConnection();
-$mensaje="";
-if (isset($_GET['datos'])) {
-	if(!empty($_GET['nombre']) && !empty($_GET['ciudad'])){
+include '../config/conexion.php';
+$database = new Connection();
+$db = $database->openConnection();
+$mensaje = false;
+if (isset($_POST['datos'])) {
+	if(empty($_POST['nombre']) || empty($_GET['ciudad'])){
 
-        $nombre=$_GET['nombre'];
-        $ciudad=$_GET['ciudad'];
+        $nombre=$_POST['nombre'];
+        $ciudad=$_POST['ciudad'];
 
 		try {
 		// calling stored procedure command
@@ -24,14 +24,14 @@ if (isset($_GET['datos'])) {
 
 		$stmt->execute();
 
-		$mensaje = "REGISTRADO! Registro Sastifactorio";
+		$mensaje = true;
 
 	} catch (PDOException $e) {
 		echo $e->getMessage();
 	}
 
 	}else{
-		$mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
+		$mensaje = false;
 	}
 }
 
@@ -39,20 +39,24 @@ if (isset($_GET['datos'])) {
 
 <div class="card" style="width: 40rem; margin: auto;">
 	<!-- Default form subscription -->
-	<form class="text-center border border-light p-5" action="registrocliente.php" method="GET">
+	<form class="text-center border border-light p-5" action="registrodestinatario.php" method="POST">
 
 		<p class="h4 mb-4">Registro de un Destino Nuevo</p>
 
 		<p>LLenar todos los datos Obligatorios para el correcto registro de Dstino.</p>
 
-		<?php if ($mensaje != "") {
-		?>
-			<div class="alert alert-danger">
-			<strong><?php echo $mensaje; ?></strong>
+		<?php if ($mensaje) {
+    ?>
+			<div class="alert alert-success">
+			<strong><?php echo "REGISTRADO! Cliente Registrado Correctamente"; ?></strong>
 			</div>
 		<?php
-		} ?>
-
+}else{
+	?>
+	<div class="alert alert-danger">
+			<strong><?php echo "DATOS INCOMPLETOS, favor vuelva a llenar los datos"; ?></strong>
+			</div>
+<?php } ?>
 		<!-- nombre -->
 		<input type="text" id="" name="nombre" class="form-control mb-4" placeholder="Nombre" required>
 
@@ -89,10 +93,14 @@ if (isset($_GET['datos'])) {
                   </tfoot>
                   <tbody>
 					<?php 
-					$mysql = new mysql(); 
-					$dato = $mysql->select('destino');
+					try {
+						$data = $db->query("SELECT * FROM destino")->fetchAll();
+					
+					} catch (PDOException $e) {
+						echo "Error al realizar el Select" . $e->getMessage();
+					}
 
-					foreach ($dato as $row) { ?>
+					foreach ($data as $row) { ?>
 					<tr>
 						<td><?php echo $row['iddestino'] ?></td>
 						<td><?php echo $row['nombre'] ?></td>

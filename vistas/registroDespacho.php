@@ -1,7 +1,9 @@
-<?php include '../includes/header.php'; 
+<?php 
+include '../includes/header.php'; 
 require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
+
 if(!empty($_POST['grabar'])){
   $idNota=$_POST['idNota'];
   $cobrador=$_POST['cobrador'];
