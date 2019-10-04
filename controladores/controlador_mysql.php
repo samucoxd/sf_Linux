@@ -20,10 +20,6 @@ class mysql{
         }
     }
 
-    public function insertCliente(){
-        
-    }
-
     function __destruct(){
         $this->con = $this->db->closeConnection(); 
         $this->con = null;
