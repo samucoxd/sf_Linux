@@ -1,36 +1,36 @@
 <?php
-include '../includes/header.php'; 
-include '../controladores/controlador_mysql.php'; 
-$database = new Connection();
+include '../includes/header.php';
+include '../config/conexion.php';
+$database = Connection();
 $db = $database->openConnection();
-$mensaje="";
+$mensaje = "";
 if (isset($_GET['datos'])) {
-	if(!empty($_GET['nombre'])){
+    if (!empty($_GET['nombre'])) {
 
-		$nombre=$_GET['nombre'];
+        $nombre = $_GET['nombre'];
 
-		try {
-		// calling stored procedure command
-		$sql = 'insert into despachador(nombre) values(:nombre)';
+        try {
+            // calling stored procedure command
+            $sql = 'insert into despachador(nombre) values(:nombre)';
 
-		// prepare for execution of the stored procedure
-		$stmt = $db->prepare($sql);
+            // prepare for execution of the stored procedure
+            $stmt = $db->prepare($sql);
 
-		// pass value to the command
+            // pass value to the command
 
-		$stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+            $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
 
-		$stmt->execute();
+            $stmt->execute();
 
-		$mensaje = "REGISTRADO! Registro Sastifactorio";
+            $mensaje = "REGISTRADO! Registro Sastifactorio";
 
-	} catch (PDOException $e) {
-		echo $e->getMessage();
-	}
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
 
-	}else{
-		$mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
-	}
+    } else {
+        $mensaje = "DATOS INCOMPLETOS, favor vuelva a llenar los datos";
+    }
 }
 
 ?>
@@ -44,12 +44,12 @@ if (isset($_GET['datos'])) {
 		<p>LLenar todos los datos Obligatorios para el correcto registro de Despachador.</p>
 
 		<?php if ($mensaje != "") {
-		?>
+    ?>
 			<div class="alert alert-danger">
 			<strong><?php echo $mensaje; ?></strong>
 			</div>
 		<?php
-		} ?>
+}?>
 
 		<!-- nombre -->
 		<input type="text" id="" name="nombre" class="form-control mb-4" placeholder="Nombre" required>
@@ -82,18 +82,22 @@ if (isset($_GET['datos'])) {
                     </tr>
                   </tfoot>
                   <tbody>
-					<?php 
-					$mysql = new mysql(); 
-					$dato = $mysql->select('despachador');
+					<?php
+try {
+    $data = $this->$db->query("SELECT * FROM despachador")->fetchAll();
 
-					foreach ($dato as $row) { ?>
+} catch (PDOException $e) {
+    echo "Error al realizar el Select" . $e->getMessage();
+}
+
+foreach ($data as $row) {?>
 					<tr>
 						<td><?php echo $row['iddespahcador'] ?></td>
 						<td><?php echo $row['nombre'] ?></td>
 					</tr>
 					<?php
-					}
-					?>
+}
+?>
 				</tbody>
                 </table>
               </div>
@@ -102,8 +106,8 @@ if (isset($_GET['datos'])) {
 
 
 
-<?php 
+<?php
 $database->closeConnection();
 $database = null;
-include '../includes/footer.php'; 
-?>	
+include '../includes/footer.php';
+?>
