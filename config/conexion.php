@@ -1,8 +1,8 @@
 <?php
     Class Connection {
     private  $server = "mysql:host=localhost;dbname=controlpedido";
-    private  $user = "root";
-    private  $pass = "root";
+    private  $user = "samucoxd";
+    private  $pass = "samucoxd";
     private $options  = array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,);
     
     protected $con;

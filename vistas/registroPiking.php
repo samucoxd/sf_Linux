@@ -3,29 +3,32 @@ require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 if(!empty($_POST['grabar'])){
-  $idNota=$_POST['idNota'];
-  $piking=$_POST['piking'];
-  $revision=$_POST['revision'];
-  $embalaje=$_POST['embalaje'];
-  $falla=$_POST['falla'];
-  //$db->query("CALL insertarPicking($idNota,$piking,$revision,$embalaje,$falla)");
+  $idNota   = $_POST['Nota'];
+  $picking   = $_POST['picking'];
+  $revision = $_POST['revision'];
+  $embalaje = $_POST['embalaje']; 
+  $falla    = $_POST['falla'];
+  $fecha    = $_POST['fecha'];
+  $hora    = $_POST['hora'];
 
   // calling stored procedure command
-  $sql = 'CALL insertarPicking(:idNot,:piking,:revicion,:embalaje,:falla)';
+  $sql = 'CALL registro_preparacion(:fecha,:hora,:picking,:revision,:embalaje,:fallo,:Nota)';
  
   // prepare for execution of the stored procedure
   $stmt = $db->prepare($sql);
 
   // pass value to the command
-  $stmt->bindParam(':idNot', $idNota, PDO::PARAM_INT);
-  $stmt->bindParam(':piking', $piking, PDO::PARAM_STR);
-  $stmt->bindParam(':revicion', $revision, PDO::PARAM_STR);
-  $stmt->bindParam(':embalaje', $embalaje, PDO::PARAM_STR);
-  $stmt->bindParam(':falla', $falla, PDO::PARAM_STR);
+  $stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
+  $stmt->bindParam(':hora', $hora, PDO::PARAM_STR);
+  $stmt->bindParam(':picking', $picking, PDO::PARAM_INT);
+  $stmt->bindParam(':revision', $revision, PDO::PARAM_INT);
+  $stmt->bindParam(':embalaje', $embalaje, PDO::PARAM_INT);
+  $stmt->bindParam(':fallo', $fallo, PDO::PARAM_INT);
+  $stmt->bindParam(':Nota', $Nota, PDO::PARAM_INT);
 
   // execute the stored procedure
   $stmt->execute();
- echo '<meta http-equiv="Refresh" content="0;URL=registroDespacho.php">';
+ //echo '<meta http-equiv="Refresh" content="0;URL=registroDespacho.php">';
 }else{
 
 ?>
@@ -73,63 +76,75 @@ if(!empty($_POST['grabar'])){
                   <tbody>
 
                   <?php
-                    
-                    $data = $db->query("CALL listaPedidoPicking()")->fetchAll();
+                    $pedido = $db->query("CALL pedido_preparacion_pendiente()")->fetchAll();
+                    $personal = $db->query("CALL lista_personal_almacen()")->fetchAll();
+                    $fallos = $db->query("CALL lista_fallo()")->fetchAll();
                     // and somewhere later:
-                    foreach ($data as $row) {
-                        
+                    foreach ($pedido as $row) {
                   ?>
 
                     <tr>
-                      <td><?php echo $row['idNota']; ?></td>
-                      <td><?php echo $row['noFac']; ?></td>
-                      <td><?php echo $row['fecha']; ?></td>
+                      <td><?php echo $row['Nota']; ?></td>
+                      <td><?php echo $row['Factura']; ?></td>
+                      <td><?php echo $row['Fecha']; ?></td>
                       <form action="" method="post">
                         <td>
-                          <select name="piking" required>
+                          <select name="picking" required>
                           <option disabled="disabled" selected value="">Seleccione una Persona</option>
-                            <option value="sva">Samuel Vizcarra</option> 
-                            <option value="ame" >Anibal Monasterio</option>
-                            <option value="csb">Christian Serrano</option>
-                            <option value="jma">Jesus Muñoz</option>
-                            <option value="arc">Archivo</option>
+                          <?php 
+                            foreach ($personal as $persona) {
+                          ?>
+                            <option value="<?php echo $persona['idpersonalalmacen']; ?>"><?php echo $persona['nombre']; ?></option> 
+                            <?php 
+                            }
+                            ?>
                           </select>
                         </td>
                         <td>
                           <select name="revision" required>
                           <option disabled="disabled" selected value="">Seleccione una Persona</option>
-                            <option value="sva">Samuel Vizcarra</option> 
-                            <option value="ame" >Anibal Monasterio</option>
-                            <option value="csb">Christian Serrano</option>
-                            <option value="jma">Jesus Muñoz</option>
+                            < <?php 
+                            foreach ($personal as $persona) {
+                          ?>
+                            <option value="<?php echo $persona['idpersonalalmacen']; ?>"><?php echo $persona['nombre']; ?></option> 
+                            <?php 
+                            }
+                            ?>
                           </select>
                         </td>
                         <td>
                           <select name="embalaje">
                           <option disabled="disabled" selected value="">Seleccione una Persona</option>
-                            <option value="sva">Samuel Vizcarra</option> 
-                            <option value="ame" >Anibal Monasterio</option>
-                            <option value="csb">Christian Serrano</option>
-                            <option value="jma">Jesus Muñoz</option>
+                          <?php 
+                            foreach ($personal as $persona) {
+                          ?>
+                            <option value="<?php echo $persona['idpersonalalmacen']; ?>"><?php echo $persona['nombre']; ?></option> 
+                            <?php 
+                            }
+                            ?>
                           </select>
                         </td>
                         <td>
                           <select name="falla">
                           <option disabled="disabled" selected value="">Seleccione una Falla</option>
-                            <option value="A">P.Faltante</option> 
-                            <option value="B" >P.Sobrante</option>
-                            <option value="C" >Cruce Lote</option>
-                            <option value="D" >Cruce Prod.</option>
+                          <?php 
+                            foreach ($fallos as $fallo) {
+                          ?>
+                            <option value="<?php echo $fallo['idfallo']; ?>"><?php echo $fallo['nombre']; ?></option> 
+                            <?php 
+                            }
+                            ?>
                           </select>
                         </td>
-                        <input type="hidden" name="idNota" value="<?php echo $row['idNota']; ?>" >
+                        <td><input type="date" name="fecha"></td>
+                        <td><input type="time" name="hora"></td>
+                        <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>" >
                         <input type="hidden" name="grabar" value="<?php echo $row['grabar']; ?>" >
                         <td><button type="submit" class="btn btn-success">Grabar</button></td>
                       </form>
                     </tr>
                     <?php
                     }
-                    $database->closeConnection();
                     ?>
                   </tbody>
                 </table>
@@ -146,4 +161,7 @@ if(!empty($_POST['grabar'])){
 
       <?php  include '../includes/footer.php'; 
               }
+
+              $database->closeConnection();
+          $db=null;
       ?>   

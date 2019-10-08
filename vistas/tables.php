@@ -38,14 +38,24 @@
 
                   <?php
                     require '../config/conexion.php';
-                    $database = new Connection();
-                    $db = $database->openConnection();
+                   
                     $mes=date("m");
                     $ano=date("Y");
                     $fechaBusqueda=$ano."-".$mes."-01";
-                    //echo $fechaBusqueda;
-                    $data = $db->query("CALL resumen_pedido('$fechaBusqueda')")->fetchAll();
-                    // and somewhere later:
+                    $data=null;
+
+                    try {
+                      $database = new Connection();
+                      $db = $database->openConnection();
+               
+                      // calling stored procedure command
+                      $sql = "CALL resumen_pedido('$fechaBusqueda')";
+               
+                      // prepare for execution of the stored procedure
+                      $data = $db->query($sql)->fetchAll();
+                  } catch (PDOException $e) {
+                      die("Error occurred:" . $e->getMessage());
+                  }
                     foreach ($data as $row) {
                         
                   ?>
@@ -59,7 +69,6 @@
                     </tr>
                     <?php
                     }
-                    $database->closeConnection();
                     ?>
                   </tbody>
                 </table>
@@ -73,4 +82,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <?php include '../includes/footer.php'; ?>   
+      <?php include '../includes/footer.php'; 
+          $database->closeConnection();
+          $db=null;
+      ?>   
