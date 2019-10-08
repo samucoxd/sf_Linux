@@ -18,26 +18,20 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
+                      <th>Nota</th>
+                      <th>Factura</th>
                       <th>Fecha</th>
-                      <th>NoTran</th>
-                      <th>NoFac</th>
-                      <th>NoClie</th>
                       <th>Cliente</th>
-                      <th>Preparacion</th>
-                      <th>despacho</th>
-                      <th>Cobrador</th>
+                      <th>Vendedor</th>
                     </tr>
                   </thead>
                   <tfoot>
                     <tr>
+                      <th>Nota</th>
+                      <th>Factura</th>
                       <th>Fecha</th>
-                      <th>NoTran</th>
-                      <th>NoFac</th>
-                      <th>NoClie</th>
                       <th>Cliente</th>
-                      <th>Preparacion</th>
-                      <th>despacho</th>
-                      <th>Cobrador</th>
+                      <th>Vendedor</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -50,32 +44,18 @@
                     $ano=date("Y");
                     $fechaBusqueda=$ano."-".$mes."-01";
                     //echo $fechaBusqueda;
-                    $data = $db->query("CALL controlPendientes('$fechaBusqueda')")->fetchAll();
+                    $data = $db->query("CALL resumen_pedido('$fechaBusqueda')")->fetchAll();
                     // and somewhere later:
                     foreach ($data as $row) {
                         
                   ?>
 
                     <tr>
-                      <td><?php echo $row['fecha']; ?></td>
-                      <td><?php echo $row['idNota']; ?></td>
-                      <td><?php echo $row['noFac']; ?></td>
-                      <td><?php echo $row['noClie']; ?></td>
-                      <td><?php echo $row['cliente']; ?></td>
-                      <?php if(empty($row['preparacion'])){ ?>
-                        <td>N</td><?php }else {?>
-                        <td><?php echo $row['preparacion']; ?></td>
-                      <?php }?>
-                      <?php if(empty($row['despacho'])){ ?>
-                        <td>N</td>
-                        <?php }else {?>
-                          <td><?php echo $row['despacho']; ?></td>
-                      <?php }?>
-                      <?php if(empty($row['cobrador'])){ ?>
-                        <td>N</td>
-                        <?php }else {?>
-                          <td><?php echo $row['cobrador']; ?></td>
-                      <?php }?>
+                      <td><?php echo $row['Nota']; ?></td>
+                      <td><?php echo $row['Factura']; ?></td>
+                      <td><?php echo $row['Fecha']; ?></td>
+                      <td><?php echo $row['Cliente']; ?></td>
+                      <td><?php echo $row['Vendedor']; ?></td>
                     </tr>
                     <?php
                     }
