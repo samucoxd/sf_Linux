@@ -1,7 +1,7 @@
 <?php
 include_once '../config/conexion.php';
-$db = new Connection();
-$conn = $db->openConnection();
+$database = new Connection();
+$db = $database->openConnection();
 $target_path = "../libs/uploads/";
 $target_path = $target_path . basename( $_FILES['uploadedfile']['name']); 
 if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
@@ -13,7 +13,7 @@ if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
 
 
 $nombreArchivo ="../libs/uploads/".basename( $_FILES['uploadedfile']['name']);
-$nombreArchivo = "../libs/uploads/pedido.csv";
+//$nombreArchivo = "../libs/uploads/pedido.csv";
 $dato;
 $aux=1;
 if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
@@ -24,7 +24,8 @@ if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
             "nota"          => $datos[4],
             "factura"       => $datos[5],
             "codCliente"    => $datos[6],
-            "codVendedor"   => $datos[8]
+            "codVendedor"   => $datos[8],
+            "ventaBruta"    => $datos[10]
      );
      }
      $aux = $aux + 1;
@@ -35,27 +36,34 @@ if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
 
 foreach ($dato as $value) {
     try {
-        // begin the transaction
-        $conn->beginTransaction();
-        // our SQL statements
+        if ($value['ventaBruta'] > 0) {
         $date = DateTime::createFromFormat('d/m/Y', $value['fecha']);
         $fecha = $date->format('Y-m-d'); // => 2013-12-24
-        $conn->exec("INSERT INTO pedido (idnota, idfac, fecha, cliente, vendedor)
-        VALUES ({$value['nota']},{$value['factura']},'{$fecha}',{$value['codCliente']},{$value['codVendedor']})");
-        // commit the transaction
-        $conn->commit();
-        echo "New records created successfully";
+        $sql = 'CALL registrar_pedido(:idnota,:idfac,:fecha,:cliente,:vendedor)';
+ 
+        // prepare for execution of the stored procedure
+        $stmt = $db->prepare($sql);
+      
+        // pass value to the command
+        $stmt->bindParam(':idnota', $value['nota'], PDO::PARAM_INT);
+        $stmt->bindParam(':idfac', $value['factura'], PDO::PARAM_INT);
+        $stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
+        $stmt->bindParam(':cliente', $value['codCliente'], PDO::PARAM_INT);
+        $stmt->bindParam(':vendedor', $value['codVendedor'], PDO::PARAM_INT);
+      
+        // execute the stored 
+        $stmt->execute();
+        echo "{$value['nota']}  REGISTRADO <br>";
+        }
+        
     }
     catch(PDOException $e)
     {
-        // roll back the transaction if something failed
-        $conn->rollback();
-        echo "Error: " . $e->getMessage();
+        echo "{$value['nota']}  NO REGISTRADO <br>";
+        die($ex->getMessage());
     }
 
 }
-
-
-$conn = $db->closeConnection();
-$conn = null;
+$database->closeConnection();
+$db=null;
 ?>

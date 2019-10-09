@@ -5,49 +5,43 @@ $database = new Connection();
 $db = $database->openConnection();
 
 if(!empty($_POST['grabar'])){
-  $idNota=$_POST['idNota'];
-  $cobrador=$_POST['cobrador'];
-  $fecha=$_POST['fecha'];
-  $hora=$_POST['hora'];
-  //$db->query("CALL insertarPicking($idNota,$piking,$revision,$embalaje,$falla)");
-
-  // calling stored procedure command
-  $sql = 'CALL insertarDespacho(:idNot,:cobrador,:fechaSalida,:horaSalida)';
+  $Nota     =   $_POST['Nota'];
+  $cobrador =   $_POST['cobrador'];
+  $fecha    =   $_POST['fecha'];
+  $hora     =   $_POST['hora'];
+try {
+  $sql = 'CALL registro_despacho(:fecha,:hora,:despachador,:id)';
  
   // prepare for execution of the stored procedure
   $stmt = $db->prepare($sql);
 
   // pass value to the command
-  $stmt->bindParam(':idNot', $idNota, PDO::PARAM_INT);
-  $stmt->bindParam(':cobrador', $cobrador, PDO::PARAM_STR);
-  $stmt->bindParam(':fechaSalida', $fecha);
-  $stmt->bindParam(':horaSalida', $hora);
+  $stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
+  $stmt->bindParam(':hora', $hora, PDO::PARAM_STR);
+  $stmt->bindParam(':despachador', $cobrador, PDO::PARAM_INT);
+  $stmt->bindParam(':id', $Nota, PDO::PARAM_INT);
 
   // execute the stored procedure
   $stmt->execute();
-
-  header('Location: registroCliente.php');
-  echo '<meta http-equiv="Refresh" content="0;URL=registroPiking.php">';
-  //date_default_timezone_set('UTC-4');
-}else{
-
-
-date_default_timezone_set("America/La_Paz");
-
+  } catch (PDOException $ex) {
+    die($ex->getMessage());
+  }
+}
+  date_default_timezone_set("America/La_Paz");
 ?>
 
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-          <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p>
+  <!-- Page Heading -->
+  <h1 class="h3 mb-2 text-gray-800">Pedidos Pendientes de Despacho</h1>
+  <p class="mb-4">En esta pagina se registran todos los pedidos pendientes de Despacho</a>.</p>
 
-          <!-- DataTales Example -->
+  <!-- DataTales Example -->
           
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Cuadro Pendientes</h6>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -56,6 +50,7 @@ date_default_timezone_set("America/La_Paz");
                     <tr>
                       <th>NoTran</th>
                       <th>NoFac</th>
+                      <th>Fecha</th>
                       <th>Cobrador</th>
                       <th>FechaSalida</th>
                       <th>HoraSalida</th>
@@ -66,6 +61,7 @@ date_default_timezone_set("America/La_Paz");
                     <tr>
                       <th>NoTran</th>
                       <th>NoFac</th>
+                      <th>Fecha</th>
                       <th>Cobrador</th>
                       <th>FechaSalida</th>
                       <th>HoraSalida</th>
@@ -76,31 +72,28 @@ date_default_timezone_set("America/La_Paz");
 
                   <?php
                     
-                    $data = $db->query("CALL listarPickingActivo()")->fetchAll();
+                    $despachos = $db->query("CALL pedido_despacho_pendiente()")->fetchAll();
+                    $personal = $db->query("CALL lista_personal_despacho()")->fetchAll();
                     // and somewhere later:
-                    $con=0;
-                    foreach ($data as $row) {
+                    foreach ($despachos as $row) {
                         
                   ?>
 
                     <tr>
-                      <td><?php echo $row['idNota']; ?></td>
-                      <td><?php echo $row['noFac']; ?></td>
+                      <td><?php echo $row['Nota']; ?></td>
+                      <td><?php echo $row['Factura']; ?></td>
+                      <td><?php echo $row['Fecha']; ?></td>
                       <form action="" method="post">
                         <td>
-                          <select name="cobrador" required  id="padre<?php echo $con; ?>">
-                            <option disabled="disabled" selected value="">Seleccione un Cobrador</option>
-                            <option value="Javier Vargas">Javier Vargas</option> 
-                            <option value="Efrain Solar" >Efrain Solar</option>
-                            <option value="Marwin Lino">Marwin Lino</option>
-                            <option value="Marco Suarez">Marco Suarez</option>
-                            <option value="David Sanchez">David Sanchez</option>
-                            <option value="Pablo Artega">Pablo Artega</option>
-                            <option value="Christian Serrano">Christian Serrano</option>
-                            <option value="Jesus Adomeit">Jesus Adomeit</option>
-                            <option value="Anibal Monasterio">Anibal Monasterio</option>
-                            <option value="Samuel Vizcarra">Samuel Vizcarra</option>
-                            <option value="" id="otro">Otro</option>
+                          <select name="cobrador" required>
+                          <option disabled="disabled" selected value="">Seleccione una Persona</option>
+                          <?php 
+                            foreach ($personal as $persona) {
+                          ?>
+                            <option value="<?php echo $persona['iddespachador']; ?>"><?php echo $persona['nombre']; ?></option> 
+                            <?php 
+                            }
+                            ?>
                           </select>
                         </td>
                         <td>
@@ -109,15 +102,13 @@ date_default_timezone_set("America/La_Paz");
                         <td>
                           <input type="time" name="hora" value="<?php echo date('H:i'); ?>" required>
                         </td>
-                        <input type="hidden" name="idNota" value="<?php echo $row['idNota']; ?>" >
+                        <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>" >
                         <input type="hidden" name="grabar" value="<?php echo $row['grabar']; ?>" >
-                        <td><button onclick="alerta('padre<?php echo $con; ?>');" type="submit" class="btn btn-success">Grabar</button></td>
+                        <td><button type="submit" class="btn btn-success">Grabar</button></td>
                       </form>
                     </tr>
                     <?php
-                    $con = $con +1;
                     }
-                    $database->closeConnection();
                     ?>
                   </tbody>
                 </table>
@@ -130,24 +121,10 @@ date_default_timezone_set("America/La_Paz");
 
       </div>
       <!-- End of Main Content -->
-<script>
-    function alerta(padre) 
-    {
-      var element = document.getElementById(padre);
-      var otro = element.options[element.selectedIndex].text;
-      if (otro == "Otro") {
-        var opcion = prompt("Introduzca un nombre:", "Introduzca un nombre");
-        
-        if (opcion == null || opcion == "") {
-              mensaje = "Has cancelado o introducido el nombre vacío";
-        } else {
-          element.options[element.selectedIndex].value = opcion;
-        }
-      }
-    }
-    
-</script>
-      
-      <?php include '../includes/footer.php'; }?>   
+      <?php 
+      include '../includes/footer.php'; 
+      $database->closeConnection();
+      $db=null;
+      ?>   
 
       
