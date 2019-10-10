@@ -247,7 +247,7 @@ SET character_set_client = @saved_cs_client;
 
 DROP TABLE IF EXISTS `personalalmacen`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `personalalmacen` (
   `idpersonalalmacen` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
@@ -271,7 +271,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `preparacion`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `preparacion` (
   `idpreparacion` int(11) NOT NULL AUTO_INCREMENT,
   `fecha` date DEFAULT NULL,
@@ -305,7 +305,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `transporte`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `transporte` (
   `idtransporte` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,
@@ -328,7 +328,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `vendedor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+
 CREATE TABLE `vendedor` (
   `idvendedor` int(11) NOT NULL,
   `nombre` varchar(45) COLLATE utf8_spanish2_ci DEFAULT NULL,

@@ -59,6 +59,8 @@ try {
       <th>Revision</th>
       <th>Embalaje</th>
       <th>Falla</th>
+      <th>Fecha</th>
+      <th>Hora</th>
       <th>Grabar</th>
     </tr>
   </thead>
@@ -71,6 +73,8 @@ try {
       <th>Revision</th>
       <th>Embalaje</th>
       <th>Falla</th>
+      <th>Fecha</th>
+      <th>Hora</th>
       <th>Grabar</th>
     </tr>
   </tfoot>
@@ -147,13 +151,17 @@ try {
   <?php
   }
   ?>
-  </tbody>
-  </table>
-  </div>
-  </div>
-  </div>
-  </div>
-  </div>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
   <?php  include '../includes/footer.php';
   $database->closeConnection();
   $db=null;
