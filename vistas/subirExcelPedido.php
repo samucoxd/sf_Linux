@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 include_once '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
@@ -34,9 +34,12 @@ if (($gestor = fopen($nombreArchivo, "r")) !== FALSE) {
     fclose($gestor);
 }
 
+
 foreach ($dato as $value) {
     try {
         if ($value['ventaBruta'] > 0) {
+		
+
         $date = DateTime::createFromFormat('d/m/Y', $value['fecha']);
         $fecha = $date->format('Y-m-d'); // => 2013-12-24
         $sql = 'CALL registrar_pedido(:idnota,:idfac,:fecha,:cliente,:vendedor)';
@@ -57,7 +60,7 @@ foreach ($dato as $value) {
         }
         
     }
-    catch(PDOException $e)
+    catch(PDOException $ex)
     {
         echo "{$value['nota']}  NO REGISTRADO <br>";
         die($ex->getMessage());

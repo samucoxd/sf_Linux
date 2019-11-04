@@ -1,8 +1,10 @@
-<?php include '../includes/header.php'; 
+﻿<?php include '../includes/header.php'; 
 require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
-if(!empty($_POST['grabar'])){
+
+
+if(isset($_POST['grabar'])){
   $Nota       =   $_POST['Nota'];
   $picking    =   $_POST['picking'];
   $revision   =   $_POST['revision'];
@@ -10,21 +12,22 @@ if(!empty($_POST['grabar'])){
   $fallo      =   $_POST['falla'];
   $fecha      =   $_POST['fecha'];
   $hora       =   $_POST['hora'];
+
 try {
   // calling stored procedure command
-  $sql = 'CALL registro_preparacion(:fecha,:hora,:picking,:revision,:embalaje,:fallo,:Nota)';
+  $sql = 'CALL registro_preparacion(:_fecha,:_hora,:_picking,:_revision,:_embalaje,:_fallo,:_id)';
  
   // prepare for execution of the stored procedure
   $stmt = $db->prepare($sql);
 
   // pass value to the command
-  $stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-  $stmt->bindParam(':hora', $hora, PDO::PARAM_STR);
-  $stmt->bindParam(':picking', $picking, PDO::PARAM_INT);
-  $stmt->bindParam(':revision', $revision, PDO::PARAM_INT);
-  $stmt->bindParam(':embalaje', $embalaje, PDO::PARAM_INT);
-  $stmt->bindParam(':fallo', $fallo, PDO::PARAM_INT);
-  $stmt->bindParam(':Nota', $Nota, PDO::PARAM_INT);
+  $stmt->bindParam(':_fecha', $fecha, PDO::PARAM_STR);
+  $stmt->bindParam(':_hora', $hora, PDO::PARAM_INT);
+  $stmt->bindParam(':_picking', $picking, PDO::PARAM_INT);
+  $stmt->bindParam(':_revision', $revision, PDO::PARAM_INT);
+  $stmt->bindParam(':_embalaje', $embalaje, PDO::PARAM_INT);
+  $stmt->bindParam(':_fallo', $fallo, PDO::PARAM_INT);
+  $stmt->bindParam(':_id', $Nota, PDO::PARAM_INT);
 
   // execute the stored procedure
   $stmt->execute();

@@ -5,7 +5,7 @@ $database = new Connection();
 $db = $database->openConnection();
 $mensaje = false;
 if (isset($_POST['datos'])) {
-    if (empty($_POST['codigo']) || empty($_POST['nombre']) || empty($_POST['zona'])) {
+    if (isset($_POST['codigo']) || isset($_POST['nombre']) || isset($_POST['zona'])) {
 
         $codigo = $_POST['codigo'];
         $nombre = $_POST['nombre'];

@@ -4,7 +4,7 @@ require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 
-if(!empty($_POST['grabar'])){
+if(isset($_POST['grabar'])){
   $Nota     =   $_POST['Nota'];
   $cobrador =   $_POST['cobrador'];
   $fecha    =   $_POST['fecha'];

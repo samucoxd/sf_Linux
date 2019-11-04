@@ -4,7 +4,7 @@ include '../config/controlPedido/conexion.php';
 include '../libs/includes/header.php'; 
 $database = new Connection();
 $db = $database->openConnection();
-if(!empty($_POST['registrar'])){
+if(isset($_POST['registrar'])){
   $nombre=$_POST['nombre'];
   $apellidos=$_POST['apellidos'];
   $cargo=$_POST['cargo'];
