@@ -135,3 +135,33 @@ DELIMITER ;
 
 drop procedure registro_despacho;
 
+-------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA BUSCAR DESPACHO POR NRO DE NOTA
+create procedure buscar_despacho_x_nota(
+in nota int
+)
+SELECT idpedido FROM despacho WHERE idpedido LIKE CONCAT('%',nota, '%');
+
+drop procedure buscar_despacho_x_nota;
+call buscar_despacho_x_nota(87455);
+-------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA LISTAR LA TABLA TRANSPORTE
+create procedure lista_transporte()
+select * from transporte;
+-------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA LISTAR LA TABLA DESTINO
+create procedure lista_destino()
+select * from destino;
+
+-- PROCEDIMIENTO PARA GRABAR EL ENVIO DE PEDIDOS
+create procedure registrar_envio(
+in fecha date,
+in hora time,
+in transporte int,
+in destino int,
+in guia varchar(45),
+in idpedido int
+)
+insert into envios (fecha,hora,transporte,destino,guia,idpedido) values(fecha,hora,transporte,destino,guia,idpedido);
+
+drop procedure registrar_envio;
