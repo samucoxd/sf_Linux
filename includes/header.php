@@ -92,7 +92,7 @@
             <h6 class="collapse-header">Login Screens:</h6>
             <a class="collapse-item" href="subirArchivo.php">Subir Archivo</a>
             <a class="collapse-item" href="tables.php">Resumen Notas</a>
-            <a class="collapse-item" href="registroPiking.php">Registro Piking</a>
+            <a class="collapse-item" href="registroPikingBuscador.php">Registro Piking</a>
             <a class="collapse-item" href="registroDespacho.php">Registro Despacho</a>
             <a class="collapse-item" href="registroNulo.php">Registro Nulo</a>
             <a class="collapse-item" href="reporteDespacho.php">Reporte</a>
