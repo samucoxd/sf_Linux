@@ -46,11 +46,9 @@ try {
   }
   
 }
-?>
+$pedido     =       $db->query("CALL preparacionxid({$_POST['nronota']})")->fetchAll();
 
-
-  <?php
-    $pedido     =       $db->query("CALL preparacionxid({$_POST['nronota']})")->fetchAll();
+if (count($pedido)>0) {
     $personal   =       $db->query("CALL lista_personal_almacen()")->fetchAll();
     $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
     // and somewhere later:
@@ -144,7 +142,13 @@ try {
         </form>
     </div>
     <?php
+} //FIN DEL IF DEL FOREACH DE PRINCIPAL
+} //fin del if validar si existe consulta mysql
+else{
+  echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
+    echo 'NO EXISTE NOTA EN LA BASE DE DATOS!.';
 }
+
 ?>
 
       <!-- End of Main Content -->
