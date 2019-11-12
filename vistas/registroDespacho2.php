@@ -30,8 +30,14 @@ try {
   date_default_timezone_set("America/La_Paz");
 
 $pedido     =       $db->query("CALL despachoxid({$_POST['nronota']})")->fetchAll();
-
 if (count($pedido)>0) {
+  foreach ($pedido as $row) {
+    if ($row['estado']=='CERRADO') {
+      echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
+    echo 'NOTA YA REGISTRADA!.';
+    exit;
+    }
+  }
     $personal   =       $db->query("CALL lista_personal_despacho()")->fetchAll();
     // and somewhere later:
     foreach ($pedido as $row) {
