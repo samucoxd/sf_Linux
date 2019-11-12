@@ -51,7 +51,7 @@ $pedido     =       $db->query("CALL preparacionxid({$_POST['nronota']})")->fetc
 if (count($pedido)>0) {
   foreach ($pedido as $row) {
     if ($row['estado']=='CERRADO') {
-      echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
+      echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
     echo 'NOTA YA REGISTRADA!.';
     exit;
     }
