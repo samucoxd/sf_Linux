@@ -46,6 +46,7 @@ try {
   }
   
 }
+date_default_timezone_set("America/La_Paz");
 $pedido     =       $db->query("CALL preparacionxid({$_POST['nronota']})")->fetchAll();
 
 if (count($pedido)>0) {
@@ -139,11 +140,11 @@ if (count($pedido)>0) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Fecha Actual</label>
-                    <input name="fecha" type="date" class="form-control">
+                    <input name="fecha" type="date" class="form-control" value="<?php echo date("Y-m-d");?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Hora</label>
-                    <input name="hora" type="time" class="form-control">
+                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i'); ?>">
                 </div>
             </div>
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
