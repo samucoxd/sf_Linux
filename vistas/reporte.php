@@ -7,7 +7,7 @@ $db = $database->openConnection();
 $resumen = $db->query("CALL resumenrapido({$_POST['nronota']})")->fetchAll();
 
 if (count($resumen)>0) {
-    foreach ($pedido as $row) {
+    foreach ($resumen as $row) {
   ?>
 
 
