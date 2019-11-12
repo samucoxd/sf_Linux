@@ -29,15 +29,15 @@ if (count($resumen)>0) {
                 </div>
                 <div class="form-group col-md-8">
                     <label>Cliente</label>
-                    <input type="date" class="form-control" value="<?php echo $row['cliente']; ?>" disabled="true">
+                    <input type="text" class="form-control" value="<?php echo $row['cliente']; ?>" disabled="true">
                 </div>
                 <div class="form-group col-md-8">
                     <label>Vendedor</label>
-                    <input type="date" class="form-control" value="<?php echo $row['vendedor']; ?>" disabled="true">
+                    <input type="text" class="form-control" value="<?php echo $row['vendedor']; ?>" disabled="true">
                 </div>
                 <div class="form-group col-md-5">
                     <label>Cobrador</label>
-                    <input type="date" class="form-control" value="<?php echo $row['despachador']; ?>" disabled="true">
+                    <input type="text" class="form-control" value="<?php echo $row['despachador']; ?>" disabled="true">
                 </div>
                 <div class="form-group col-md-5">
                     <label>Fecha Despacho</label>
