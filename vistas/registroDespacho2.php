@@ -78,11 +78,11 @@ if (count($pedido)>0) {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Fecha Actual</label>
-                    <input name="fecha" type="date" class="form-control">
+                    <input name="fecha" type="date" class="form-control" value="<?php echo date("Y-m-d");?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label>Hora</label>
-                    <input name="hora" type="time" class="form-control">
+                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i'); ?>">
                 </div>
             </div>
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
@@ -93,7 +93,10 @@ if (count($pedido)>0) {
     <?php
 } //FIN DEL IF DEL FOREACH DE PRINCIPAL
 } //fin del if validar si existe consulta mysql
-
+else{
+  echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
+    echo 'NO EXISTE NOTA EN LA BASE DE DATOS!.';
+}
 include '../includes/footer.php'; 
 $database->closeConnection();
 $db=null;
