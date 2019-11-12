@@ -9,6 +9,8 @@ if(isset($_POST['grabar'])){
   $cobrador =   $_POST['cobrador'];
   $fecha    =   $_POST['fecha'];
   $hora     =   $_POST['hora'];
+
+  $exito = false;
 try {
   $sql = 'CALL registro_despacho(:fecha,:hora,:despachador,:id)';
  
@@ -23,8 +25,16 @@ try {
 
   // execute the stored procedure
   $stmt->execute();
+  $exito = true;
   } catch (PDOException $ex) {
-    die($ex->getMessage());
+    echo $ex->getMessage();
+  }
+  if ($exito == true ) {
+    echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
+    echo 'REGISTRO CON EXITO!.';
+  }else {
+    echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
+    echo 'NO SE REALIZO EL INGRESO!.';
   }
 }
   date_default_timezone_set("America/La_Paz");
