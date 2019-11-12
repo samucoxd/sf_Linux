@@ -137,7 +137,7 @@ if (count($pedido)>0) {
                 </div>
             </div>
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
-            <input type="hidden" name="grabar" value="<?php echo $row['grabar']; ?>">
+            <input type="hidden" name="grabar" value="grabar">
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
