@@ -30,10 +30,10 @@ try {
     echo $ex->getMessage();
   }
   if ($exito == true ) {
-    echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
+    echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
     echo 'REGISTRO CON EXITO!.';
   }else {
-    echo '<meta http-equiv="refresh" content="2; url=registroPikingBuscador.php">';
+    echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
     echo 'NO SE REALIZO EL INGRESO!.';
   }
 }
