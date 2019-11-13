@@ -11,7 +11,7 @@ if(isset($_POST['grabar'])){
   $embalaje   =   $_POST['embalaje']; 
   $fallo      =   $_POST['falla'];
   $fecha      =   $_POST['fecha'];
-  $hora       =   $_POST['hora'];
+  $hora       =   date("H:i:s", strtotime($_POST['hora']));
 
 $exito = false;
 try {
