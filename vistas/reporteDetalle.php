@@ -43,7 +43,7 @@ if (count($resumen)>0) {
                     <label>Hora Preparacion</label>
                     <input type="time" class="form-control" value="<?php echo $row['horapreparacion']; ?>" disabled="true">
                 </div>
-                <div class="form-group col-md-5">
+                <div class="form-group col-md-8">
                     <label>Preparador</label>
                     <input type="text" class="form-control" value="<?php echo $row['preparador']; ?>" disabled="true">
                 </div>
@@ -56,7 +56,7 @@ if (count($resumen)>0) {
                     <input type="text" class="form-control" value="<?php echo $row['fallo']; ?>" disabled="true">
                 </div>
                 <div class="form-group col-md-5">
-                    <label>Estado Preapracion</label>
+                    <label>Estado Preparacion</label>
                     <input type="text" class="form-control" value="<?php echo $row['estadopreparacion']; ?>" disabled="true">
                 </div>
                 <div class="form-group col-md-4">
