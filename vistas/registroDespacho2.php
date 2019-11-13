@@ -92,7 +92,7 @@ if (count($pedido)>0) {
                 </div>
                 <div class="form-group col-md-6">
                     <label>Hora</label>
-                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i'); ?>">
+                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i:sa'); ?>">
                 </div>
             </div>
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
