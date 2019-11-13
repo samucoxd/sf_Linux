@@ -12,6 +12,7 @@ if(isset($_POST['grabar'])){
   $fallo      =   $_POST['falla'];
   $fecha      =   $_POST['fecha'];
   $hora       =   date("H:i:s", strtotime($_POST['hora']));
+  echo $hora;
 
 $exito = false;
 try {
