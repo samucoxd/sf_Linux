@@ -78,7 +78,7 @@ if (count($pedido)>0) {
                     <?php 
         foreach ($personal as $persona) {
       ?>
-                    <option value="<?php echo $persona['nombre']; ?>"><?php echo $persona['nombre']; ?>
+                    <option value="<?php echo $persona['iddespachador']; ?>"><?php echo $persona['nombre']; ?>
                     </option>
                     <?php 
         }
