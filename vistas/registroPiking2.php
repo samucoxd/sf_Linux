@@ -11,8 +11,7 @@ if(isset($_POST['grabar'])){
   $embalaje   =   $_POST['embalaje']; 
   $fallo      =   $_POST['falla'];
   $fecha      =   $_POST['fecha'];
-  $hora       =   date("H:i:s", strtotime($_POST['hora']));
-  echo $hora;
+  $hora       =   $_POST['hora'];
 
 $exito = false;
 try {
@@ -24,7 +23,7 @@ try {
 
   // pass value to the command
   $stmt->bindParam(':_fecha', $fecha, PDO::PARAM_STR);
-  $stmt->bindParam(':_hora', $hora, PDO::PARAM_INT);
+  $stmt->bindParam(':_hora', $hora, PDO::PARAM_STR);
   $stmt->bindParam(':_picking', $picking, PDO::PARAM_INT);
   $stmt->bindParam(':_revision', $revision, PDO::PARAM_INT);
   $stmt->bindParam(':_embalaje', $embalaje, PDO::PARAM_INT);
@@ -145,7 +144,7 @@ if (count($pedido)>0) {
                 </div>
                 <div class="form-group col-md-6">
                     <label>Hora</label>
-                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i:sa'); ?>">
+                    <input name="hora" type="time" class="form-control" value="<?php echo date('H:i'); ?>">
                 </div>
             </div>
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
