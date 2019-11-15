@@ -22,6 +22,11 @@ include '../includes/header.php';
          >
   <label for="vendedor">vendedor</label>
 </div>
+<div>
+  <input type="text" name="valor" placeholder="Valor">
+         >
+  <label for="Valor">Valor</label>
+</div>
     <button type="submit">Buscar</button>
 </form>
 <?php 
