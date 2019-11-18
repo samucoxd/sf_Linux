@@ -1,6 +1,12 @@
 <?php 
 include '../includes/header.php'; 
 ?>
+<div class="jumbotron">
+  <h1>Reporte Detallado de Pedido</h1>      
+  <p>Busqueda por Criterio, elegir alguna opcion de busqueda, escribir el valor de la busqueda ej.:"farmacia beniana", determinar la cantidad de registros a mostrar de forma descendente por fecha. </p>
+</div>
+
+
 <div class="container-fluid">
   <div class="card shadow mb-4">
     <div class="card-body">
@@ -12,15 +18,15 @@ include '../includes/header.php';
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="opcion" value="factura">
-  <label for="factura">factura</label>
+  <label for="factura">Factura</label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="opcion" value="cliente">
-  <label for="cliente">cliente</label>
+  <label for="cliente">Cliente</label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="opcion" value="vendedor">
-  <label for="vendedor">vendedor</label>
+  <label for="vendedor">Vendedor</label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="opcion" value="cobrador">
@@ -34,7 +40,7 @@ include '../includes/header.php';
   <input type="number" name="limite" value="10">
   <label for="Valor">Cantidad de Registros</label>
 </div>
-    <button type="submit">Buscar</button>
+    <button class="btn btn-success" type="submit">Buscar</button>
 </form>
       </div>
       </div>
