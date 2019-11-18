@@ -95,7 +95,6 @@
             <a class="collapse-item" href="registroPikingBuscador.php">Registro Piking</a>
             <a class="collapse-item" href="registroDespachoBuscador.php">Registro Despacho</a>
             <a class="collapse-item" href="registroNulo.php">Registro Nulo</a>
-            <a class="collapse-item" href="reporteDespacho.php">Reporte</a>
             <a class="collapse-item" href="reporteDespachoDetalle2.php">Reporte Detallado</a>
             <a class="collapse-item" href="registroDestino.php">Registro Envio</a>
             <a class="collapse-item" href="register.html">Register</a>
