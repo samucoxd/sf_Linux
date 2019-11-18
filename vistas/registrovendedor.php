@@ -12,7 +12,7 @@ if (isset($_GET['datos'])) {
 
 		try {
 		// calling stored procedure command
-		$sql = 'insert into vendedor(idcliente,nombre,zona) values(:codigo,:nombre)';
+		$sql = 'insert into vendedor(idvendedor,nombre) values(:codigo,:nombre)';
 
 		// prepare for execution of the stored procedure
 		$stmt = $db->prepare($sql);
