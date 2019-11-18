@@ -19,7 +19,15 @@ include '../includes/header.php';
   <label for="vendedor">vendedor</label>
 </div>
 <div>
+  <input type="radio" name="opcion" value="cobrador">
+  <label for="vendedor">Cobrador</label>
+</div>
+<div>
   <input type="text" name="valor" placeholder="Valor">
+  <label for="Valor">Valor</label>
+</div>
+<div>
+  <input type="number" name="limite" value="10">
   <label for="Valor">Valor</label>
 </div>
     <button type="submit">Buscar</button>
