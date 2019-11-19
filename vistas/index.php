@@ -1,5 +1,16 @@
 <?php 
-include '../includes/header.php'; ?>
+include '../includes/header.php'; 
+require '../config/conexion.php';
+$database = new Connection();
+$db = $database->openConnection();
+$preparacion = 0;
+$preparacion = $db->query("call countpreparacion()")->fetchAll();
+
+if (count($preparacion)<=0) {
+  $preparacion = 0;
+}
+
+?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -19,8 +30,8 @@ include '../includes/header.php'; ?>
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pedidos (Mes)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">480</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Pendiente de Preparacion</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $preparacion; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -287,4 +298,9 @@ include '../includes/header.php'; ?>
 
       </div>
       <!-- End of Main Content -->
-<?php include '../includes/footer.php'; ?>      
+<?php 
+include '../includes/footer.php'; 
+$database->closeConnection();
+$db=null;
+
+?>      
