@@ -10,7 +10,7 @@ foreach ($result as $row){
   if (count($row)<=0) {
     $preparacion = 0;
   }else {
-    $preparacion = $result['total'];
+    $preparacion = $row['total'];
   }
 }
 
