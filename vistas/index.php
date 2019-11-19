@@ -9,8 +9,8 @@ $result = $db->query("call countpreparacion()")->fetchAll();
 if (count($result)<=0) {
   $preparacion = 0;
 }else {
-  $result = $result->fetch(PDO::FETCH_BOTH);
-  $preparacion = $result[0];
+  $result = $result->fetch(PDO::FETCH_ASSOC);
+  $preparacion = $result['total'];
 }
 
 ?>
