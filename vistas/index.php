@@ -4,10 +4,13 @@ require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 $preparacion = 0;
-$preparacion = $db->query("call countpreparacion()")->fetchAll();
+$result = $db->query("call countpreparacion()")->fetchAll();
 
-if (count($preparacion)<=0) {
+if (count($result)<=0) {
   $preparacion = 0;
+}else {
+  $result = $result->fetch(PDO::FETCH_BOTH);
+  $preparacion = $result[0];
 }
 
 ?>
