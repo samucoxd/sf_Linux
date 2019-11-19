@@ -4,13 +4,23 @@ require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 $preparacion = 0;
+$despacho = 0;
 $result = $db->query("call countpreparacion()")->fetchAll();
+$result2 = $db->query("call countdespacho()")->fetchAll();
 
 foreach ($result as $row){
   if (count($row)<=0) {
     $preparacion = 0;
   }else {
     $preparacion = $row['total'];
+  }
+}
+
+foreach ($result2 as $row){
+  if (count($row)<=0) {
+    $despacho = 0;
+  }else {
+    $despacho = $row['total'];
   }
 }
 
@@ -52,8 +62,8 @@ foreach ($result as $row){
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pedido (Anual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">7500</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Pendiente de Despacho</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $despacho; ?></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
