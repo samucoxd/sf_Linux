@@ -68,7 +68,7 @@ $db = $database->openConnection();
                     if ($_GET['valor'] == 'despacho') {
                       try {
                         // calling stored procedure command
-                        $sql = "CALL resumen_pedido('$fechaBusqueda')";
+                        $sql = "CALL pendientedespacho()";
                         // prepare for execution of the stored procedure
                         $data = $db->query($sql)->fetchAll();
                     } catch (PDOException $e) {
