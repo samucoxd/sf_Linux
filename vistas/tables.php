@@ -1,4 +1,9 @@
-<?php include '../includes/header.php'; ?>
+<?php 
+include '../includes/header.php'; 
+require '../config/conexion.php';
+$database = new Connection();
+$db = $database->openConnection();
+?>
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -37,20 +42,10 @@
                   <tbody>
 
                   <?php
-                    require '../config/conexion.php';
-                   
-                    $mes=date("m");
-                    $ano=date("Y");
-                    $fechaBusqueda=$ano."-".$mes."-01";
-                    $data=null;
-
+                  if ($_GET['valor' == 'picking'] ) {
                     try {
-                      $database = new Connection();
-                      $db = $database->openConnection();
-               
                       // calling stored procedure command
-                      $sql = "CALL resumen_pedido('$fechaBusqueda')";
-               
+                      $sql = "CALL pendientepreparacion()";
                       // prepare for execution of the stored procedure
                       $data = $db->query($sql)->fetchAll();
                   } catch (PDOException $e) {
@@ -69,7 +64,33 @@
                     </tr>
                     <?php
                     }
+                  }else {
+                    if ($_GET['valor' == 'despacho']) {
+                      try {
+                        // calling stored procedure command
+                        $sql = "CALL resumen_pedido('$fechaBusqueda')";
+                        // prepare for execution of the stored procedure
+                        $data = $db->query($sql)->fetchAll();
+                    } catch (PDOException $e) {
+                        die("Error occurred:" . $e->getMessage());
+                    }
+                      foreach ($data as $row) {
+                          
                     ?>
+  
+                      <tr>
+                        <td><?php echo $row['Nota']; ?></td>
+                        <td><?php echo $row['Factura']; ?></td>
+                        <td><?php echo $row['Fecha']; ?></td>
+                        <td><?php echo $row['Cliente']; ?></td>
+                        <td><?php echo $row['Vendedor']; ?></td>
+                      </tr>
+                      <?php
+                      }
+                    }
+                  }
+                  ?>
+                    
                   </tbody>
                 </table>
               </div>
@@ -82,7 +103,7 @@
       </div>
       <!-- End of Main Content -->
 
-      <?php include '../includes/footer.php'; 
-          $database->closeConnection();
-          $db=null;
-      ?>   
+<?php include '../includes/footer.php'; 
+$database->closeConnection();
+$db=null;
+?>   
