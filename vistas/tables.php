@@ -42,7 +42,7 @@ $db = $database->openConnection();
                   <tbody>
 
                   <?php
-                  if ($_GET['valor' == 'picking'] ) {
+                  if ($_GET['valor']  == 'picking') {
                     try {
                       // calling stored procedure command
                       $sql = "CALL pendientepreparacion()";
@@ -65,7 +65,7 @@ $db = $database->openConnection();
                     <?php
                     }
                   }else {
-                    if ($_GET['valor' == 'despacho']) {
+                    if ($_GET['valor'] == 'despacho') {
                       try {
                         // calling stored procedure command
                         $sql = "CALL resumen_pedido('$fechaBusqueda')";
