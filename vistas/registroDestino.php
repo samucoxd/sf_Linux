@@ -60,7 +60,7 @@ foreach ($res as $row) {
 ?>
   <tr>
     <form action="" method="post">
-      <td><?php echo $row['idpedido'] ?></td>
+      <td><?php echo $row['idnota'] ?></td>
       <td><input type="date" name="fecha"></td>
       <td><input type="time" name="hora"></td>
       <td>
