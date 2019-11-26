@@ -12,7 +12,7 @@ $db = $database->openConnection();
 
 <?php
 if (isset($_POST['encontrado'])) {
-  $query = "call buscar_despacho_x_nota('{$_POST["encontrado"]}')";
+  $query = "call buscar_despacho_x_nota({$_POST['encontrado']})";
   $res = $db->query($query)->fetchAll();
   $transporte = $db->query("call lista_transporte")->fetchAll();
   $destino = $db->query("call lista_destino")->fetchAll();
