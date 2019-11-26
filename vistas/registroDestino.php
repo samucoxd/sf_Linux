@@ -85,7 +85,7 @@ foreach ($res as $row) {
       </td>
       <td><input type="text" name="guia"></td>
       <input type="hidden" name="grabar" value="grabar">
-      <input type="hidden" name="nota" value="<?php echo $row['idpedido']; ?>">
+      <input type="hidden" name="nota" value="<?php echo $row['idnota']; ?>">
       <td><button type="submit" class="btn btn-success">Grabar</button></td>
     </form>
   </tr>
