@@ -15,7 +15,7 @@ if(isset($_POST['grabar'])){
   $stmt = $db->prepare($sql);
 
   // pass value to the command
-  $stmt->bindParam(':_idNot', $idNota, PDO::PARAM_INT);
+  $stmt->bindParam(':_nota', $idNota, PDO::PARAM_INT);
   $stmt->bindParam(':_motivo', $motivo, PDO::PARAM_STR);
   $stmt->bindParam(':_obs', $obs, PDO::PARAM_STR);
 
