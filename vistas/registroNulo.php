@@ -9,7 +9,7 @@ if(!empty($_POST['grabar'])){
   //$db->query("CALL insertarPicking($idNota,$piking,$revision,$embalaje,$falla)");
 
   // calling stored procedure command
-  $sql = 'CALL insertarNulo(:idNot,:motivo,:obs)';
+  $sql = 'CALL registrar_nulo(:_nota,:_motivo,:_obs)';
  
   // prepare for execution of the stored procedure
   $stmt = $db->prepare($sql);
@@ -21,7 +21,7 @@ if(!empty($_POST['grabar'])){
 
   // execute the stored procedure
   $stmt->execute();
-  $database->closeConnection();
+  
 }
 ?>
 
@@ -66,4 +66,8 @@ if(!empty($_POST['grabar'])){
       </div>
       <!-- End of Main Content -->
 
-      <?php include '../includes/footer.php'; ?>   
+      <?php 
+      include '../includes/footer.php'; 
+      $database->closeConnection();
+      $db=null;
+      ?>   
