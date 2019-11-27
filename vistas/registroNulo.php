@@ -2,7 +2,7 @@
 require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
-if(!empty($_POST['grabar'])){
+if(isset($_POST['grabar'])){
   $idNota=$_POST['idNota'];
   $motivo=$_POST['motivo'];
   $obs=$_POST['obs'];
@@ -51,7 +51,7 @@ if(!empty($_POST['grabar'])){
                             <option value="eFacturacion">Error_Facturacion</option>
                         </select>
                         <label for="">Observaciones</label>
-                        <textarea name="obs" class="form-control" cols="30" rows="10"></textarea><br>
+                        <input type="text" name="obs" id="">
                     </div>
                     <input type="hidden" name="grabar" value="grabar">
                     <button type="submit" class="btn btn-success">Grabar</button>
