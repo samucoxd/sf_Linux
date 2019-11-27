@@ -15,9 +15,9 @@ if(!empty($_POST['grabar'])){
   $stmt = $db->prepare($sql);
 
   // pass value to the command
-  $stmt->bindParam(':idNot', $idNota, PDO::PARAM_INT);
-  $stmt->bindParam(':motivo', $motivo, PDO::PARAM_STR);
-  $stmt->bindParam(':obs', $obs, PDO::PARAM_STR);
+  $stmt->bindParam(':_idNot', $idNota, PDO::PARAM_INT);
+  $stmt->bindParam(':_motivo', $motivo, PDO::PARAM_STR);
+  $stmt->bindParam(':_obs', $obs, PDO::PARAM_STR);
 
   // execute the stored procedure
   $stmt->execute();
