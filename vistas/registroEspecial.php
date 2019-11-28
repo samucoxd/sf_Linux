@@ -64,9 +64,9 @@ $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
         ?>
 
 <div class="row">
-<div class="card col-sm-6">
+        <div class="card col-sm-6">
             <div class="card-header">
-            <h5 class="card-header card-sucess">Registro de Preparacion</h5>
+            <h5>Registro de Preparacion</h5>
             </div>
             <form method="POST" action="">
                 <div class="form-row">
@@ -158,9 +158,9 @@ $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
         foreach ($pedido as $row) {
             ?>
 
-<div class="card col-sm-6">
+    <div class="card col-sm-6">
             <div class="card-header">
-            <h5 class="card-header card-sucess">Registro de Despacho</h5>
+            <h5>Registro de Despacho</h5>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-4">
