@@ -63,8 +63,8 @@ $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
     foreach ($pedido as $row) {
         ?>
 
-
-        <div class="card" style="width: 30rem; margin: 20px;">
+<div class="row">
+<div class="col-sm-6">
             <h5 class="card-header card-sucess">Registro de Preparacion</h5>
             <form method="POST" action="">
                 <div class="form-row">
@@ -156,7 +156,7 @@ $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
         foreach ($pedido as $row) {
             ?>
 
-        <div class="card" style="width: 30rem; margin: 20px;">
+<div class="col-sm-6">
             <h5 class="card-header card-sucess">Registro de Despacho</h5>
             <div class="form-row">
                 <div class="form-group col-md-4">
@@ -196,14 +196,13 @@ $fallos     =       $db->query("CALL lista_fallo()")->fetchAll();
                     <input name="hora" type="time" class="form-control" value="<?php echo date('H:i'); ?>">
                 </div>
             </div>
-
-
+    </div>
+</div>
 
             <input type="hidden" name="Nota" value="<?php echo $row['Nota']; ?>">
             <input type="hidden" name="grabar" value="grabar">
             <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
-
     <?php
         } //FIN DEL IF DEL FOREACH DE DESPACHO
     } //fin del if validar si existe consulta mysql
