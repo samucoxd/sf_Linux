@@ -94,7 +94,7 @@
             <a class="collapse-item" href="tables.php">Resumen Notas</a>
             <a class="collapse-item" href="registroPikingBuscador.php">Registro Piking</a>
             <a class="collapse-item" href="registroDespachoBuscador.php">Registro Despacho</a>
-            <a class="collapse-item" href="registroEspecial.php">Registro Especial</a>
+            <a class="collapse-item" href="registroEspecialBuscador.php">Registro Especial</a>
             <a class="collapse-item" href="registroNulo.php">Registro Nulo</a>
             <a class="collapse-item" href="reporteDespachoDetalle2.php">Reporte Detallado</a>
             <a class="collapse-item" href="registroDestino.php">Registro Envio</a>
