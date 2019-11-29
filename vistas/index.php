@@ -337,17 +337,16 @@ google.load("visualization", "1", {packages:["corechart"]});
 	?> 
  ]);
  var options = {
- title: 'Number of Students according to their class',
-  pieHole: 0.5,
-          pieSliceTextStyle: {
-            color: 'black',
-          },
-          legend: 'none'
+    title: 'Number of Students according to their class',
+      pieHole: 0.5,
+              pieSliceTextStyle: {
+                color: 'black',
+              },
+              legend: 'none'
  };
  var chart = new google.visualization.PieChart(document.getElementById("myPieChart"));
  chart.draw(data,options);
  }
-      }
     </script>
 <?php 
 include '../includes/footer.php'; 
