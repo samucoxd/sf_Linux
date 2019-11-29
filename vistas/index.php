@@ -173,6 +173,7 @@ foreach ($result2 as $row){
                   <div class="chart-pie pt-4 pb-2">
                     <canvas id="myPieChart"></canvas>
                   </div>
+                  <!-- 
                   <div class="mt-4 text-center small">
                     <span class="mr-2">
                       <i class="fas fa-circle text-primary"></i> Javier Vargas
@@ -183,7 +184,7 @@ foreach ($result2 as $row){
                     <span class="mr-2">
                       <i class="fas fa-circle text-info"></i> Marco Suarez
                     </span>
-                  </div>
+                  </div>Card Body -->
                 </div>
               </div>
             </div>
@@ -342,7 +343,7 @@ foreach ($result2 as $row){
           title: 'My Daily Activities'
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
 
         chart.draw(data, options);
       }
