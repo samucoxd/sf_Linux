@@ -170,7 +170,7 @@ foreach ($result2 as $row){
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
+                  <div class="chart-area">
                     <div id="myPieChart"></div>
                   </div>
                 </div>
