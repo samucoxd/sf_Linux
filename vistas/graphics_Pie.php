@@ -1,6 +1,5 @@
 <?php 
-include 'controlPedido/conexion.php';
-
+require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 
