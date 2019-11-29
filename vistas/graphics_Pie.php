@@ -3,9 +3,7 @@ require '../config/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 
-$stmt = $db->query("SELECT fallo.nombre,count(fallo) as cantidad from preparacion
-inner join fallo on preparacion.fallo=fallo.idfallo
-group by fallo;")->fetchAll();
+$stmt = $db->query("call cantidadError()")->fetchAll();
 
 //create an array
 $array = array();
