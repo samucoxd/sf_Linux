@@ -169,22 +169,8 @@ foreach ($result2 as $row){
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-pie pt-4 pb-2">
-                    <canvas id="myPieChart"></canvas>
-                  </div>
-                  <!-- 
-                  <div class="mt-4 text-center small">
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-primary"></i> Javier Vargas
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-success"></i> Efrain Solar
-                    </span>
-                    <span class="mr-2">
-                      <i class="fas fa-circle text-info"></i> Marco Suarez
-                    </span>
-                  </div>Card Body -->
+                <div class="container-fluid">
+                  <div id="myPieChart" style="width: 100%; height: 500px;"></div>
                 </div>
               </div>
             </div>
