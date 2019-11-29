@@ -161,7 +161,7 @@ foreach ($result2 as $row){
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="graphics_Pie_Details.php">Detalle</a>
+                      <a class="dropdown-item" href="graphics_Pie_Details.php" target="_blank">Detalle</a>
                       <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a>
                     </div>
