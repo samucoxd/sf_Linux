@@ -320,7 +320,8 @@ foreach ($result2 as $row){
                 var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
                 var options = {
                 title: 'Errores de Preparacion',
-                pieSliceText: 'label'
+                filterColumnLabel: 'cantidad'
+                //pieSliceText: 'label'
                 };
                 chart.draw(data, options);
             }
