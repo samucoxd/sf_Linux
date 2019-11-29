@@ -319,7 +319,8 @@ foreach ($result2 as $row){
                 // To render the pie chart.
                 var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
                 var options = {
-                title: 'Errores de Preparacion'
+                title: 'Errores de Preparacion',
+                pieSliceText: 'label'
                 };
                 chart.draw(data, options);
             }
