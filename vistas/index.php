@@ -303,7 +303,6 @@ foreach ($result2 as $row){
       </div>
       <!-- End of Main Content -->
 
-      <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script type="text/javascript" src="../libs/js/googlechart.js"></script>
     <script type="text/javascript">
     function drawChart() {
