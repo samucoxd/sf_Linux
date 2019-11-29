@@ -319,12 +319,7 @@ foreach ($result2 as $row){
                 // To render the pie chart.
                 var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
                 var options = {
-                title: 'Errores de Preparacion',
-                  pieHole: 0.5,
-                          pieSliceTextStyle: {
-                            color: 'black',
-                          },
-                        legend: 'none'
+                title: 'Errores de Preparacion'
                 };
                 chart.draw(data, options);
             }
