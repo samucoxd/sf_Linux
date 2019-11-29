@@ -169,8 +169,10 @@ foreach ($result2 as $row){
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="container-fluid">
-                  <div id="myPieChart" style="width: 100%; height: 500px;"></div>
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <div id="myPieChart"></div>
+                  </div>
                 </div>
               </div>
             </div>
