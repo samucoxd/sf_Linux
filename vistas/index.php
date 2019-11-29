@@ -319,24 +319,34 @@ foreach ($result2 as $row){
       <script type="text/javascript" src="../libs/js/googlechart.js"></script>
     <script type="text/javascript">
 
-      function drawChart() {
-	   // call ajax function to get sports data
-                var jsonData = $.ajax({
-                    url: "graphics_Pie.php",
-                    dataType: "json",
-                    async: false
-                }).responseText;
-				//The DataTable object is used to hold the data passed into a visualization.
-                var data = new google.visualization.DataTable(jsonData);
-        // To render the pie chart.
-              var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-              chart.draw(data, {width: 100, height: 100});
-        }
-        // load the visualization api
-        google.charts.load('current', {'packages':['corechart']});
-        
-        // Set a callback to run when the Google Visualization API is loaded.
-        google.charts.setOnLoadCallback(drawChart);
+google.load("visualization", "1", {packages:["corechart"]});
+ google.setOnLoadCallback(drawChart);
+ function drawChart() {
+ var data = google.visualization.arrayToDataTable([
+ ['nombre','cantidad'],
+ <?php 
+			$query = "SELECT fallo.nombre,count(fallo) as cantidad from preparacion
+      inner join fallo on preparacion.fallo=fallo.idfallo
+      group by fallo";
+ 
+      $result = $db->query($query)->fetchAll();
+
+      foreach ($result as $row) {
+        echo "['".$row['nombre']."',".$row['cantidad']."],";
+      }
+	?> 
+ ]);
+ var options = {
+ title: 'Number of Students according to their class',
+  pieHole: 0.5,
+          pieSliceTextStyle: {
+            color: 'black',
+          },
+          legend: 'none'
+ };
+ var chart = new google.visualization.PieChart(document.getElementById("myPieChart"));
+ chart.draw(data,options);
+ }
       }
     </script>
 <?php 
