@@ -154,7 +154,7 @@ foreach ($result2 as $row){
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Pedido Cobrador</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Errores Almacen</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -306,35 +306,34 @@ foreach ($result2 as $row){
       <script type="text/javascript" src="https://www.google.com/jsapi"></script>
       <script type="text/javascript" src="../libs/js/googlechart.js"></script>
     <script type="text/javascript">
-
-google.load("visualization", "1", {packages:["corechart"]});
- google.setOnLoadCallback(drawChart);
- function drawChart() {
- var data = google.visualization.arrayToDataTable([
- ['nombre','cantidad'],
- <?php 
-			$query = "SELECT fallo.nombre,count(fallo) as cantidad from preparacion
-      inner join fallo on preparacion.fallo=fallo.idfallo
-      group by fallo";
+    function drawChart() {
+                // call ajax function to get sports data
+                var jsonData = $.ajax({
+                    url: "graphics_Pie.php",
+                    dataType: "json",
+                    async: false
+                }).responseText;
+                //The DataTable object is used to hold the data passed into a visualization.
+                var data = new google.visualization.DataTable(jsonData);
  
-      $result = $db->query($query)->fetchAll();
+                // To render the pie chart.
+                var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+                var options = {
+                title: 'Errores de Preparacion',
+                  pieHole: 0.5,
+                          pieSliceTextStyle: {
+                            color: 'black',
+                          },
+                        legend: 'none'
+                };
+                chart.draw(data, options);
+            }
+            // load the visualization api
+            google.charts.load('current', {'packages':['corechart']});
+ 
+            // Set a callback to run when the Google Visualization API is loaded.
+            google.charts.setOnLoadCallback(drawChart);
 
-      foreach ($result as $row) {
-        echo "['".$row['nombre']."',".$row['cantidad']."],";
-      }
-	?> 
- ]);
- var options = {
-    title: 'Number of Students according to their class',
-      pieHole: 0.5,
-              pieSliceTextStyle: {
-                color: 'black',
-              },
-              legend: 'none'
- };
- var chart = new google.visualization.PieChart(document.getElementById("myPieChart"));
- chart.draw(data,options);
- }
     </script>
 <?php 
 include '../includes/footer.php'; 
