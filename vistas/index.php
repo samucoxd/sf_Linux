@@ -320,7 +320,6 @@ foreach ($result2 as $row){
     <script type="text/javascript">
 
       function drawChart() {
-	  
 	   // call ajax function to get sports data
                 var jsonData = $.ajax({
                     url: "graphics_Pie.php",
@@ -329,23 +328,15 @@ foreach ($result2 as $row){
                 }).responseText;
 				//The DataTable object is used to hold the data passed into a visualization.
                 var data = new google.visualization.DataTable(jsonData);
-		/*		
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
-		*/
-        var options = {
-          title: 'My Daily Activities'
-        };
-
-        var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
-
-        chart.draw(data, options);
+        // To render the pie chart.
+              var chart = new google.visualization.PieChart(document.getElementById('myPieChart'));
+              chart.draw(data, {width: 100, height: 100});
+        }
+        // load the visualization api
+        google.charts.load('current', {'packages':['corechart']});
+        
+        // Set a callback to run when the Google Visualization API is loaded.
+        google.charts.setOnLoadCallback(drawChart);
       }
     </script>
 <?php 
