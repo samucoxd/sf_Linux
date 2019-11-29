@@ -313,6 +313,40 @@ foreach ($result2 as $row){
 
       </div>
       <!-- End of Main Content -->
+
+
+      <script type="text/javascript" src="../libs/js/googlechart.js"></script>
+    <script type="text/javascript">
+
+      function drawChart() {
+	  
+	   // call ajax function to get sports data
+                var jsonData = $.ajax({
+                    url: "graphics_Pie.php",
+                    dataType: "json",
+                    async: false
+                }).responseText;
+				//The DataTable object is used to hold the data passed into a visualization.
+                var data = new google.visualization.DataTable(jsonData);
+		/*		
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Work',     11],
+          ['Eat',      2],
+          ['Commute',  2],
+          ['Watch TV', 2],
+          ['Sleep',    7]
+        ]);
+		*/
+        var options = {
+          title: 'My Daily Activities'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 <?php 
 include '../includes/footer.php'; 
 $database->closeConnection();
