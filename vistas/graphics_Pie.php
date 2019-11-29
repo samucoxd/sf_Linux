@@ -4,13 +4,9 @@ include 'controlPedido/conexion.php';
 $database = new Connection();
 $db = $database->openConnection();
 
-
-$sql = "SELECT fallo.nombre,count(fallo) as cantidad from preparacion
+$stmt = $db->query("SELECT fallo.nombre,count(fallo) as cantidad from preparacion
 inner join fallo on preparacion.fallo=fallo.idfallo
- group by fallo;";
-
-  $stmt = $db->query($sql)->fetchAll();
-  $db = $database->closeConnection();
+group by fallo;")->fetchAll();
 
 //create an array
 $array = array();
