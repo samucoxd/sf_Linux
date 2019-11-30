@@ -7,6 +7,7 @@ $preparacion = 0;
 $despacho = 0;
 $result = $db->query("call countpreparacion()")->fetchAll();
 $result2 = $db->query("call countdespacho()")->fetchAll();
+$erroresDetalle = $db->query("call detalle_error()")->fetchAll();
 
 foreach ($result as $row){
   if (count($row)<=0) {
@@ -161,9 +162,11 @@ foreach ($result2 as $row){
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="graphics_Pie_Details.php" target="_blank">Detalle</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+
+                      <a class="dropdown-item" href="#" data-toggle="modal" data-target="#errorModal">
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Detalle Errores
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -301,6 +304,58 @@ foreach ($result2 as $row){
 
       </div>
       <!-- End of Main Content -->
+
+
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Detalle por Persona</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Fallo</th>
+              <th scope="col">Cantidad</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php $cont = 1; foreach ($erroresDetalle as $row) { ?>
+            <tr>
+              <th scope="row"><?php echo $cont; ?></th>
+              <td><?php echo $row['nombre']; ?></td>
+              <td><?php echo $row['fallo']; ?></td>
+              <td><?php echo $row['cantidad']; ?></td>
+            </tr>
+          <?php $cont += 1; } ?>
+          </tbody>
+        </table>
+        
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Logout Modal-->
+
+
+
+
+
+
+
+
+
 
       <script type="text/javascript" src="../libs/js/googlechart.js"></script>
     <script type="text/javascript">

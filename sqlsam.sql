@@ -482,7 +482,7 @@ inner join fallo on preparacion.fallo=fallo.idfallo
 
 call cantidadError();
 
-select personalalmacen.nombre, count(fallo) from preparacion
+select personalalmacen.nombre,fallo.nombre, count(fallo) from preparacion
 inner join fallo on preparacion.fallo=fallo.idfallo
 inner join personalalmacen on preparacion.picking=personalalmacen.idpersonalalmacen
  group by fallo.nombre;
