@@ -32,9 +32,11 @@ try {
   if ($exito == true ) {
     echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
     echo 'REGISTRO CON EXITO!.';
+    exit();
   }else {
     echo '<meta http-equiv="refresh" content="2; url=registroDespachoBuscador.php">';
     echo 'NO SE REALIZO EL INGRESO!.';
+    exit();
   }
 }
   date_default_timezone_set("America/La_Paz");

@@ -481,8 +481,8 @@ inner join fallo on preparacion.fallo=fallo.idfallo
  group by fallo;
 
 call cantidadError();
-
-select personalalmacen.nombre,fallo.nombre, count(fallo) from preparacion
+create procedure detalle_error()
+select personalalmacen.nombre as nombre,fallo.nombre as fallo, count(fallo) as cantidad from preparacion
 inner join fallo on preparacion.fallo=fallo.idfallo
 inner join personalalmacen on preparacion.picking=personalalmacen.idpersonalalmacen
- group by fallo.nombre;
+ group by fallo.nombre,personalalmacen.nombre;
