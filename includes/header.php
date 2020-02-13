@@ -98,6 +98,8 @@
             <a class="collapse-item" href="registroNulo.php">Registro Nulo</a>
             <a class="collapse-item" href="reporteDespachoDetalle2.php">Reporte Detallado</a>
             <a class="collapse-item" href="registroDestino.php">Registro Envio</a>
+            <a class="collapse-item" href="registroPremioDetalle.php">Registro Premio</a>
+            <a class="collapse-item" href="reportePremio.php">Reporte Premio</a>
             <a class="collapse-item" href="register.html">Register</a>
             <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
             
@@ -125,6 +127,7 @@
             <a class="collapse-item" href="registrofallo.php">Registro Fallo</a>
             <a class="collapse-item" href="registropersonal.php">Registro Personal Almacen</a>
             <a class="collapse-item" href="registrotransporte.php">Registro Transporte</a>
+            <a class="collapse-item" href="registroPremio.php">Registro Premio</a>
             <div class="collapse-divider"></div>
             <h6 class="collapse-header">Other Pages:</h6>
             <a class="collapse-item" href="404.html">404 Page</a>
