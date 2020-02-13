@@ -12,23 +12,32 @@ inner join cliente on pedido.cliente = cliente.idcliente
 inner join despacho on pedido.idnota = despacho.idpedido;')->fetchAll();
 
 ?>
-<div class="container-fluid">
-  <div class="card shadow mb-4">
-    <div class="card-body">
-      <div class="table-responsive">
-<table class="table table-bordered" width="100%" cellspacing="0">
-  <thead>
-    <tr>
-      <th scope="col">Fecha</th>
+      <div class="card shadow mb-4" style="width: 60rem; margin: 20px auto;">
+	<div class="card-header py-3">
+	<h6 class="m-0 font-weight-bold text-primary">TABLA DE PREMIOS</h6>
+	</div>
+	<div class="card-body">
+	<div class="table-responsive">
+	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		<thead>
+    <th scope="col">Fecha</th>
       <th scope="col">Despacho</th>
       <th scope="col">Nota</th>
       <th scope="col">Cliente</th>
       <th scope="col">Premio</th>
       <th scope="col">Cantidad</th>
-    </tr>
-  </thead>
-  <tbody>
-<?php
+		</thead>
+		<tfoot>
+    <th scope="col">Fecha</th>
+      <th scope="col">Despacho</th>
+      <th scope="col">Nota</th>
+      <th scope="col">Cliente</th>
+      <th scope="col">Premio</th>
+      <th scope="col">Cantidad</th>
+			</tr>
+		</tfoot>
+		<tbody>
+    <?php
     foreach ($premios as $premio) {
 ?>
 
@@ -43,12 +52,19 @@ inner join despacho on pedido.idnota = despacho.idpedido;')->fetchAll();
 <?php
 }// FIN DE FOREACH
 ?>
-  </tbody>
-</table>
+		</tbody>
+	</table>
+	</div>
+	</div>
 </div>
-  </div>
-    </div>
-      </div>
+
+
+
+
+
+
+
+
 <?php
 include '../includes/footer.php'; 
 $database->closeConnection();
